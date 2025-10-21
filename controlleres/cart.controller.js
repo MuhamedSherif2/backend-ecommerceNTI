@@ -1,5 +1,5 @@
 const CartModel = require('../models/cart.model');
-
+const productModel = require('../models/products.model');
 
 exports.addToCart = async (req, res) => {
     try {
@@ -7,7 +7,7 @@ exports.addToCart = async (req, res) => {
 
         const cartItem = await CartModel.create({
             user: req.user._id,
-            product: productId,
+            products: productId,
             quantity,
         });
 
@@ -19,7 +19,7 @@ exports.addToCart = async (req, res) => {
 
 exports.getUserCart = async (req, res) => {
     try {
-        const cartItems = await CartModel.find({ user: req.user._id }).populate('product');
+        const cartItems = await CartModel.find({ user: req.user._id }).populate('products');
         return res.status(200).json({ data: cartItems });
     } catch (err) {
         return res.status(500).json({ message: 'Get cart error: ' + err });

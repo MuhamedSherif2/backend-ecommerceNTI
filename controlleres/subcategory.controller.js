@@ -33,7 +33,7 @@ exports.updateSubcategory = async (req, res) => {
 exports.deleteSubcategory = async (req, res) => {
     try {
         const { id } = req.params
-        const deleted = await subCategoryModel.findByIdAndDelete(id, { isDeleted: true }, { new: true })
+        const deleted = await subCategoryModel.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
         if (!deleted) return res.status(404).json({ message: 'Subcategory not found' })
         res.status(200).json({ message: 'Subcategory deleted successfully' })
     } catch (error) {
